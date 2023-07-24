@@ -11,6 +11,17 @@ const newMessageRouter = require('./routes/new');
 
 const app = express();
 
+// set up mongoose connection
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', false);
+
+async function connectDb() {
+  await mongoose.connect(process.env.MONGODB_URI);
+  console.log('Connected to MongoDB!');
+}
+
+connectDb().catch((err) => console.log(err));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
